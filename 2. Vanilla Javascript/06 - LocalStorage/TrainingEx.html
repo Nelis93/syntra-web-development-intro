@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul class="cars">
+      <li>list of cars</li>
+    </ul>
+    <form action="submit" class="add-cars-tag">
+      <input type="text" id="input-field" />
+      <input type="submit" id="submit-button" />
+    </form>
+    <script>
+      const listOfCarsHTML = document.querySelector(".cars");
+      const formHTML = document.querySelector(".add-cars-tag");
+      const inputFieldHTML = document.getElementById("input-field");
+      const submitBtnHTML = document.getElementById("submit-button");
+
+      //get the list from local storage
+
+      const LSlist = JSON.parse(localStorage.getItem("LSitem")) || [];
+
+      //creating the function for when the form is sumbitted
+
+      const onFormSubmit (e) => {
+        e.preventDefault();
+        LSlist.push(inputFieldHTML.value);
+        localStorage.setItem("listofcarsinlocalstorage", JSON.stringify(LSlist));
+        listBuilder(inputFieldHTML.value);
+        inputFieldHTML.value = '';
+      }
+      //defining the function that creates the list of items to be inserted into the HTML
+
+      const listBuilder = (text) => {
+        listOfCarsHTML.insertAdjacentHTML('beforeend', `<li>${text}</li>`)
+      }
+      formHTML.addEventListener('submit', onFormSubmit)
+    </script>
+  </body>
+</html>

@@ -1,22 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Type Ahead 👀</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Type Ahead 👀</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form class="search-form">
+      <input type="text" class="search" placeholder="City or State" />
+      <ul class="suggestions">
+        <li>Filter for a city</li>
+        <li>or a state</li>
+      </ul>
+    </form>
+    <script>
+      const endpoint =
+        "https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json";
 
-  <form class="search-form">
-    <input type="text" class="search" placeholder="City or State">
-    <ul class="suggestions">
-      <li>Filter for a city</li>
-      <li>or a state</li>
-    </ul>
-  </form>
-<script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+      const inputField = document.querySelector("input");
+      const dropdownlist = document.querySelector(".suggestions");
+      let places = [];
+      fetch(endpoint)
+        .then((data) => {
+          return data.json();
+        })
+        .then((data) => {
+          console.log(data[0]);
+          const cities = [];
+          const states = [];
+          data.forEach((element) => {
+            cities.push(element.city);
+            if (!states.includes(element.state)) {
+              states.push(element.state);
+            }
+          });
+          places = [...cities, ...states];
+          console.log(places);
+        })
+        .catch((err) => console.log(err));
+      const listItems = [];
+      const matchInput = (event) => {
+        console.log(event.target.value);
+        dropdownlist.innerHTML = "";
+        places.forEach((place) => {
+          if (place.includes(event.target.value)) {
+            listItems.push(`<li>${place}</li>`);
+          } else {
+          }
+        });
+        console.log(listItems);
+        dropdownlist.innerHTML = listItems.join("");
+        listItems.length = 0;
+        console.log(listItems);
+      };
 
-</script>
-</body>
+      inputField.addEventListener("input", matchInput);
+      inputField.value = "";
+    </script>
+  </body>
 </html>
