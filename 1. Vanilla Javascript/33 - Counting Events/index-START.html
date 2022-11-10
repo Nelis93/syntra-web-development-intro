@@ -16,18 +16,34 @@
     <script>
       // DOCS: https://countapi.xyz/
       // 1. Count the number of times the button is clicked using the function below
-
+      const btn = document.getElementById("count");
+      const cntr = document.getElementById("counter");
       // 3. Promisify the following function
-      function clicked() {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "https://api.countapi.xyz/hit/simontemmerman.com/awesomeclick");
-        xhr.responseType = "json";
-        xhr.onload = function () {
-          //2. Set the count in the counter section
-          alert(`This button has been clicked ${this.response.value} times!`);
-        };
-        xhr.send();
+      const items = localStorage.getItem("items");
+
+      function onPageLoad() {
+        counter.innerHTML = items;
       }
+      function clicked() {
+        fetch("https://api.countapi.xyz/hit/simontemmerman.com/awesomeclick")
+          .then((data) => data.json())
+          .then((data) => (counter.innerHTML = data.value))
+          .then((data) => localStorage.setItem("items", JSON.stringify(data)))
+          .catch((err) => console.log(err));
+        // var xhr = new XMLHttpRequest();
+        // xhr.open(
+        //   "GET",
+        //   "https://api.countapi.xyz/hit/simontemmerman.com/awesomeclick"
+        // );
+        // xhr.responseType = "json";
+        // xhr.onload = function () {
+        //   //2. Set the count in the counter section
+        //   alert(`This button has been clicked ${this.response.value} times!`);
+        // };
+        // xhr.send();
+      }
+      btn.addEventListener("click", clicked);
+      window.addEventListener("load", onPageLoad);
       // 3. Rewrite the function to use the fetch API
 
       // 4. When the page loads, get the number of clicks already registered for your page

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Details</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <style>
+      body {
+        font-family: "superFont";
+      }
+      #charInfo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      #comix {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+      }
+      p span {
+        font-size: 2em;
+        align-self: center;
+        padding-bottom: 2em;
+        margin-bottom: 2em;
+      }
+      ul {
+        padding-bottom: 1.5em;
+      }
+      p {
+        width: 50%;
+        text-align: center;
+      }
+    </style>
+    <section id="details"></section>
+    <script>
+      const ts = 1;
+      const publicKey = "6650d34472bf337cf4b9ef6e5f730502";
+
+      const hash = "a3ef5cc237ddbef133ddaf893596446c";
+      const newId = window.location.search.toString().slice(4);
+      const details = document.getElementById("details");
+      fetch(
+        `https://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}`
+      )
+        .then((data) => data.json())
+        .then((data) => {
+          return Array.from(data.data.results).find(
+            (element) => element.id.toString() === newId
+          );
+        })
+        .then((data) => {
+          const allDetails = Array.from(data);
+          console.log(data);
+          details.insertAdjacentHTML(
+            "beforeend",
+            `<h1 class="hero-banner">${data.name}</h1>
+            <section id="charInfo"><img class="hero" src="${data.thumbnail.path}/portrait_xlarge.${data.thumbnail.extension}">
+            <p><span>Character BIO: </span><br/>${data.description}</p><article id="comix">
+            <ul id="freeReads">Free reads:<br/></ul>
+            <ul id="series">Part of series:<br/></ul>
+            <ul id="appearances">Appears in:<br/></ul></article></section>`
+          );
+          return data;
+        })
+        .then((data) => {
+          console.log(data);
+          data.comics.items.forEach((item) => {
+            document
+              .getElementById("freeReads")
+              .insertAdjacentHTML(
+                "beforeend",
+                `<li><a href="${item.resourceURI}">${item.name}</a></li>`
+              );
+          });
+          data.series.items.forEach((item) => {
+            document
+              .getElementById("series")
+              .insertAdjacentHTML(
+                "beforeend",
+                `<li><a href="${item.resourceURI}">${item.name}</a></li>`
+              );
+          });
+          data.stories.items.forEach((item) => {
+            document
+              .getElementById("appearances")
+              .insertAdjacentHTML(
+                "beforeend",
+                `<li><a href="${item.resourceURI}">${item.name}</a></li>`
+              );
+          });
+        })
+        .catch((err) => console.log(err));
+    </script>
+  </body>
+</html>
