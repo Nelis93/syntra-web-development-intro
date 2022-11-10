@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // /* *
 //  * What is the output of the code snippet?
 //  */
@@ -195,6 +196,8 @@
 //     console.log(err);
 //   });
 
+=======
+>>>>>>> d831ff21722a6ea259bad666befaf0481b9a8ca2
 /**
  * Build a guessing game:
  *  1. A user can enter a number
@@ -204,6 +207,7 @@
     5. The user can play the game as long as they want to
  */
 
+<<<<<<< HEAD
 const enterNumber = () => {
   return new Promise((resolve, reject) => {
     const rando = Math.floor(Math.random() * 6);
@@ -228,10 +232,41 @@ const continueGame = () => {
       resolve(handleGuess());
     } else {
       reject("thanks for playing");
+=======
+let userScore = 0;
+
+const enterNumber = () => {
+  return new Promise((resolve, reject) => {
+    const userInput = parseInt(prompt("Enter a number (1 - 6)"));
+
+    if (userInput > 6) {
+      alert("Your number is too high.");
+      return handleGuess();
+    }
+
+    const randomNumber = Math.floor(Math.random() * 6 + 1);
+    if (userInput === randomNumber) {
+      userScore = userScore + 2;
+    }
+    if (userInput + 1 === randomNumber || userInput - 1 === randomNumber) {
+      userScore = userScore + 1;
+    }
+    resolve(userScore);
+  });
+};
+const continueGame = () => {
+  return new Promise((resolve, reject) => {
+    const c = confirm(`Your score is ${userScore}. Do you want to continue?`);
+    if (c) {
+      resolve();
+    } else {
+      reject();
+>>>>>>> d831ff21722a6ea259bad666befaf0481b9a8ca2
     }
   });
 };
 const handleGuess = () => {
+<<<<<<< HEAD
   //const rando = Math.floor(Math.random() * 6);
   enterNumber()
     .then((res) => {
@@ -261,3 +296,12 @@ if (startUp) {
 //   3 if we have a result display it
 //   4 ask the user if they want to continue
 //   5 if so call enternumber again*/
+=======
+  enterNumber()
+    .then(() => continueGame())
+    .then(() => handleGuess())
+    .catch(() => alert("You are done."));
+};
+
+handleGuess();
+>>>>>>> d831ff21722a6ea259bad666befaf0481b9a8ca2

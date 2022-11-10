@@ -69,6 +69,14 @@
       }
       render();
       //7. Use this factory to show the name and image of every hero you fetch
+      function cardFactory() {
+        return `
+        <section class="hero" data-hero-id="1">
+          <img src="http://i.annihil.us/u/prod/marvel/i/mg/3/20/5232158de5b16.jpg" />
+          <span>Name</span>
+        </section>
+        `;
+      }
     </script>
   </body>
 </html>
