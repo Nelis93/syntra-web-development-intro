@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /** Class representing a Stack. */
+
+      class Stack {
+        #storage;
+        constructor() {
+          this.#storage = [];
+        }
+        /*
+         * Adds a new value at the end of the stack
+         * @param {*} value the value to push
+         */
+        push(value) {
+          this.#storage.push(value);
+          return this;
+        }
+
+        /*
+         * Removes the value at the end of the stack and returns it
+         * @return {*} the last and newest value in the stack
+         */
+        pop() {
+          this.#storage.pop();
+          return this;
+        }
+        /*
+         * Returns the value at the end of the stack without removing it
+         * @return {*} the last and newest value in the stack
+         */
+        peek() {
+          return this.#storage[this.#storage.length - 1];
+        }
+      }
+
+      const myStack = new Stack();
+
+      console.log(myStack);
+      window.Stack = Stack;
+    </script>
+    <script>
+      class Queue {
+        constructor() {
+          this._storage = [];
+        }
+        /*
+         * Enqueues a new value at the end of the queue
+         * @param {*} value the value to enqueue
+         */
+        enqueue(value) {
+          this._storage.unshift(value);
+          return this;
+        }
+
+        /*
+         * Dequeues the value from the beginning of the queue and returns it
+         * @return {*} the first and oldest value in the queue
+         */
+        dequeue() {
+          this._storage.shift();
+          return this;
+        }
+        /*
+         * Returns the value at the beginning of the queue without removing it from the queue
+         * @return {*} the first and oldest value in the queue
+         */
+        peek() {
+          return this._storage[0];
+        }
+      }
+
+      const myQueue = new Queue();
+
+      console.log(myQueue);
+      window.Queue = Queue;
+    </script>
+  </body>
+</html>
