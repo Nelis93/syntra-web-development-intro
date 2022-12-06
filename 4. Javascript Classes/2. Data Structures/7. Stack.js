@@ -27,8 +27,7 @@ class Stack {
    * @return {*} the last and newest value in the stack
    */
   peek() {
-    this.#storage[-1];
-    return this;
+    return this.#storage[this.#storage.length - 1];
   }
 }
 

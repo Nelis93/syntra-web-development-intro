@@ -1,10 +1,54 @@
+const { extend } = require("lodash");
+
 console.log("~~~~~~~~~~~~~~TASK 1~~~~~~~~~~~~~~");
 /**
  * Create some classes.
  * For inspiration what you can create, look around you 👀.
  * Some examples: furniture, animal, chair, teacher, student, person, tree, movie,...
  */
-
+class Movie {
+  constructor(title, rating) {
+    this.title = title;
+    this.leadRole = "";
+    this.mainCharacter = "";
+    this.rating = rating;
+  }
+  boostRating(number) {
+    this.rating = this.rating + number;
+  }
+}
+class Tea {
+  constructor(kind, origin, price) {
+    this.kind = kind;
+    this.origin = origin;
+    this.price = price;
+  }
+}
+class Word {
+  constructor(letterCount) {
+    this.letterCount = letterCount;
+  }
+  checkValid() {}
+  correct;
+}
+class Dog {
+  constructor(name, breed, age) {
+    this.name = name;
+    this.breed = breed;
+    this.age = age;
+  }
+  //   get name() {
+  //     return this.name;
+  //   }
+}
+class Cat extends Dog {
+  constructor(name, breed, age) {
+    super();
+  }
+  get catName() {
+    return `${this.name} is a cat`;
+  }
+}
 console.log("~~~~~~~~~~~~~~TASK 2~~~~~~~~~~~~~~");
 /**
  * Initialize all those classes you defined above using the new keyword.
@@ -43,4 +87,30 @@ console.log("~~~~~~~~~~~~~~TASK 6~~~~~~~~~~~~~~");
     .square()
     .display();
  */
-class Calculator {}
+class Calculator {
+  constructor() {
+    this.total = 0;
+  }
+  add(number) {
+    this.total += number;
+    return this;
+  }
+  subtract(number) {
+    this.total -= number;
+    return this;
+  }
+  poweroftwo() {
+    this.total *= this.total;
+    return this;
+  }
+  square() {
+    this.total /= this.total;
+    return this;
+  }
+  isEven() {
+    return this.total % 2 === 0;
+  }
+  display() {
+    return this.total;
+  }
+}

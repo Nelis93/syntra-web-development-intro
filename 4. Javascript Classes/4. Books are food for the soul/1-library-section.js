@@ -1,41 +1,54 @@
-class LibrarySection {
+export class LibrarySection {
+  #books;
   constructor() {
     // we create a placeholder for the actual books in the specialized classes
     // that will overwrite this variable.
-    this._books = [];
+    this.#books = [
+      {
+        title: "A tale of two cities",
+        author: "Charles Dickens",
+        ISBN: 13518984,
+        inStock: 20,
+        bookPlacement: "Fiction|200|1",
+        borrowed: 0,
+        cover:
+          "https://assets.matrubharti.com/cdni/book-cover/1588820931_017672000.jpg?w=700&q=50",
+        desc: "definitely not a story about two cities",
+      },
+    ];
   }
 
-  search(type, term) {
-    return this[type].filter((book) => {
+  search(term) {
+    return this.#books.filter((book) => {
       return book.title.toLowerCase().includes(term.toLowerCase());
     });
   }
 
   get all() {
-    return this._books;
+    return this.#books;
   }
 
   get available() {
-    return this._books.filter((book) => {
+    return this.#books.filter((book) => {
       return book.inStock > book.borrowed;
     });
   }
 
   get borrowed() {
-    return this._books.filter((book) => {
+    return this.#books.filter((book) => {
       return book.borrowed > 0;
     });
   }
 }
 
 // here we can create as many sections as we want
-class FantasySection extends LibrarySection {
+export class FantasySection extends LibrarySection {
   constructor(app) {
     // call super so the LibrarySection functions will all be available
     super();
 
     // store the books that we have in stock
-    this._books = [
+    this.#books = [
       {
         title: "Another Book",
         author: "Raymond E. Feist",
