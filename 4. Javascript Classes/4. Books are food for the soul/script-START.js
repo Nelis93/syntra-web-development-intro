@@ -31,6 +31,13 @@ class LibrarySection {
       book.ISBN === isbn;
     }).borrowed++;
   }
+  borrow(isbn) {
+    this.books = this.books.map((book) => {
+      if (book.ISBN === isbn) book.borrowed++;
+
+      return book;
+    });
+  }
 }
 
 // here we can create as many sections as we want
@@ -57,15 +64,22 @@ class FantasySection extends LibrarySection {
 }
 class Library {
   constructor() {
+    const fantaBooks = new FantasySection();
     const state = {
-      books: [],
+      books: dramaBooks.all,
     };
     this.state = new Proxy(state, {
       set: this.update,
     });
+    this.BookList - new BookList(this.state);
   }
   update(state, property, value) {
     console.log(`this is being changed: ${property} → ${value}`);
+  }
+}
+class BookList {
+  constructor(state) {
+    console.log(state);
   }
 }
 class UI {
