@@ -52,11 +52,12 @@
         <input type="submit" value="+ Add Item" />
       </form>
     </div>
-
+    <script src="classes.js"></script>
     <script>
+      const storage = new LocalStorage();
       const addItems = document.querySelector(".add-items");
       const itemsList = document.querySelector(".plates");
-      const items = JSON.parse(localStorage.getItem("items")) || [];
+      const items = storage.set({ items: [] });
       //haalt items uit localStorage en geeft een array terug
       function addItem(e) {
         e.preventDefault();
@@ -66,11 +67,10 @@
           text,
           done: false,
         };
-
         items.push(item);
         //steekt de inhoud van de input field achter in de array van de items uit localStorage
         populateList(items, itemsList);
-        localStorage.setItem("items", JSON.stringify(items));
+        //localStorage.setItem("items", JSON.stringify(items));
         //steekt de array van de items uit localStorage terug in de localStorage in JSON formaat
         this.reset();
       }
@@ -95,7 +95,8 @@
         const el = e.target;
         const index = el.dataset.index;
         items[index].done = false;
-        localStorage.setItem("items", JSON.stringify(items));
+        set(item);
+        //localStorage.setItem("items", JSON.stringify(items));
         populateList(items, itemsList);
       }
 
