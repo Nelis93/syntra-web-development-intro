@@ -7,7 +7,6 @@ function About() {
   return (
     <div
       style={{
-        height: "100vh",
         backgroundColor: theme.background,
       }}
     >

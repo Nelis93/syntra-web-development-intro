@@ -18,6 +18,7 @@ export default ThemeContext;
 
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(themes.light);
+
   const toggleTheme = () => {
     if (theme.color === "light") {
       setTheme(themes.dark);
